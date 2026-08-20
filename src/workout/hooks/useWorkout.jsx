@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 
 const useWorkout = () => {
-  const monthArr = [
+  const monthArr = [ //month array because the Date object gives number 
     "Jan",
     "Feb",
     "Mar",
@@ -19,7 +19,7 @@ const useWorkout = () => {
     "Nov",
     "Dec",
   ];
-  const dayArr = [
+  const dayArr = [ //day array because the Date object gives number
     "Sunday",
     "Monday",
     "Tuesday",
@@ -29,11 +29,11 @@ const useWorkout = () => {
     "Saturday",
   ];
 
-  const today = new Date();
+  const today = new Date(); //gets the current date
   const date = today.getDate();
-  const month = monthArr[today.getMonth()];
+  const month = monthArr[today.getMonth()]; //using array to get month  
   const year = today.getFullYear();
-  const day = dayArr[today.getDay()];
+  const day = dayArr[today.getDay()]; //using array to get day
 
   const dayRepresentation = `${date} ${month} ${year}`;
 
@@ -57,9 +57,9 @@ const useWorkout = () => {
     setWorkouts((prevWorkout) => {
       const checkWorkout = prevWorkout.find((val) => {
         return val.dayRepresentation === dayRepresentation;
-      });
+      }); // check that if workout for that day exists or not
 
-      if (checkWorkout) {
+      if (checkWorkout) { // if workout exists then give warning
         toast.warn("Workout already added");
         return prevWorkout;
       }
@@ -76,19 +76,19 @@ const useWorkout = () => {
 
   const [sets, setSets] = useState([]);
 
-  const addSetfunc = () => {
+  const addSetfunc = () => { //function for creating new set
     setSets((prev) => [...prev, { id: nanoid(), weight: "", reps: "" }]);
   };
 
   const getExerciseData = (data) => {
     setExercises((prevExercise) => {
       const checkExercise = prevExercise.find((val) => {
-        return val.exerciseName
-          .toLowerCase()
+        return val.exerciseName //check if same exercise already exists
+          .toLowerCase() // checking based on exercise name
           .includes(data.exerciseName.toLowerCase());
       });
 
-      if (checkExercise) {
+      if (checkExercise) { //if exercise exists then give warning 
         toast.warn("Exercise already exists");
         return prevExercise;
       }
@@ -102,13 +102,13 @@ const useWorkout = () => {
       return updatedExercise;
     });
 
-    navigate(-1);
+    navigate(-1); //after adding a exercise go back to exercise page
     reset();
   };
 
   const deleteExercise = (exercise) => {
     const deletedArr = exercises.filter((val) => {
-      return val.id !== exercise.id;
+      return val.id !== exercise.id; // filtering array with no matching ids so it will delete the exercise 
     });
     setExercises(deletedArr);
     localStorage.setItem("exercises", JSON.stringify(deletedArr));

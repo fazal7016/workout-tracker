@@ -7,6 +7,6 @@ import { ToastContainer } from 'react-toastify';
 createRoot(document.getElementById('root')).render(
 <>
 <AppRoutes />
-<ToastContainer  autoClose={500}/>
+<ToastContainer  autoClose={800}/>
 </>
 )

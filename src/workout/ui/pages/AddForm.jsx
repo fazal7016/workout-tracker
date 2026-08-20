@@ -5,8 +5,15 @@ import { nanoid } from "nanoid";
 import Set from "../components/Set";
 
 const AddForm = () => {
-  const { navigate, register, handleSubmit, errors, getExerciseData, addSetfunc, sets } =
-    useWorkout();
+  const {
+    navigate,
+    register,
+    handleSubmit,
+    errors,
+    getExerciseData,
+    addSetfunc,
+    sets,
+  } = useWorkout();
 
   return (
     <div className="min-h-screen bg-[#F7F8F5] px-4 py-8 sm:px-6">
@@ -18,7 +25,7 @@ const AddForm = () => {
             type="button"
             className="mb-5 text-sm font-medium text-[#6D9773] hover:text-[#0C3B2E] cursor-pointer"
           >
-            ← Back to Workout
+            ← Back to Exercises
           </button>
 
           <p className="text-sm font-medium text-[#6D9773]">
@@ -77,9 +84,10 @@ const AddForm = () => {
               <button
                 onClick={addSetfunc}
                 type="button"
-                className="border-2 py-3 px-4 border-[#0C3B2E] bg-[#0C3B2E] text-white rounded-xl font-medium cursor-pointer transition hover:bg-white hover:text-[#0C3B2E]"
+                className="flex shrink-0 items-center justify-center gap-1.5 rounded-xl border-2 border-[#0C3B2E] bg-[#0C3B2E] px-3 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-[#0C3B2E] sm:px-4 sm:py-3"
               >
-                Add Set
+                <BsPlus className="text-xl" />
+                <span>Add Set</span>
               </button>
             </div>
           </div>
@@ -96,7 +104,6 @@ const AddForm = () => {
               />
             );
           })}
-       
 
           {/* Divider */}
           <div className="my-8 border-t border-gray-100" />
