@@ -109,36 +109,8 @@ const AddForm = () => {
           {/* Divider */}
           <div className="my-8 border-t border-gray-100" />
 
-          {/* Summary */}
-          {/* <div className="rounded-2xl bg-[#0C3B2E] p-5 text-white">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-wider text-white/60">
-                  Exercise
-                </p>
-
-                <p className="mt-1 font-semibold">Bench Press</p>
-              </div>
-
-              <div className="text-right">
-                <p className="text-xs uppercase tracking-wider text-white/60">
-                  Total Sets
-                </p>
-
-                <p className="mt-1 text-xl font-bold">3</p>
-              </div>
-            </div>
-          </div> */}
-
           {/* Actions */}
           <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
-            <button
-              type="button"
-              className="rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-600 transition hover:bg-gray-50"
-            >
-              Cancel
-            </button>
-
             <button
               type="submit"
               className="rounded-xl bg-[#FFBA00] px-7 py-3 text-sm font-bold text-[#0C3B2E] transition hover:brightness-95 cursor-pointer"

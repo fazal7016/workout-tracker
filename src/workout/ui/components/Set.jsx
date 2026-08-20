@@ -26,6 +26,7 @@ const Set = ({ index, register, errors }) => {
                   required: "Weight required",
                 })}
                 type="number"
+                step="0.5"
                 placeholder="60"
                 className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 pr-12 text-sm outline-none focus:border-[#6D9773] focus:ring-4 focus:ring-[#6D9773]/10"
               />
