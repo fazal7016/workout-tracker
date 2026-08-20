@@ -1,7 +1,7 @@
 import React from "react";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 
-const WorkoutCard = ({ singleWorkout, day, navigate }) => {
+const WorkoutCard = ({ singleWorkout, day, navigate, exercises }) => {
   return (
     <div
       className="
@@ -20,7 +20,6 @@ const WorkoutCard = ({ singleWorkout, day, navigate }) => {
         lg:w-[calc(33.333%-16px)]
       "
     >
-      {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h1 className="truncate text-xl font-bold text-[#0C3B2E] sm:text-2xl">
@@ -37,11 +36,10 @@ const WorkoutCard = ({ singleWorkout, day, navigate }) => {
         </span>
       </div>
 
-      {/* Footer */}
       <div className="mt-5 flex items-center justify-between gap-3 border-t border-gray-200 pt-4 sm:mt-6 sm:pt-5">
         <p className="text-sm text-gray-500 sm:text-base">
           <span className="font-semibold text-[#0C3B2E]">
-            {singleWorkout.exercises.length}
+            {exercises.length}
           </span>{" "}
           Exercises
         </p>

@@ -5,7 +5,7 @@ import WorkoutCard from "../components/WorkoutCard";
 import useWorkout from "../../hooks/useWorkout";
 
 const Dashboard = () => {
-  const { workouts, day, addWorkoutfunc, navigate } = useWorkout();
+  const { workouts, day, addWorkoutfunc, navigate, exercises } = useWorkout();
   return (
     <div className="bg-[#F7F8F5] min-h-screen">
       <Navbar addWorkoutfunc={addWorkoutfunc} />
@@ -18,6 +18,7 @@ const Dashboard = () => {
               singleWorkout={elem}
               day={day}
               navigate={navigate}
+              exercises={exercises}
             />
           );
         })}
