@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import useWorkout from "../../hooks/useWorkout";
 import { nanoid } from "nanoid";
 import Set from "../components/Set";
+import { BsPlus } from "react-icons/bs";
 
 const AddForm = () => {
   const {
