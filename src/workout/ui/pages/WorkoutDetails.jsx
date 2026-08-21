@@ -1,25 +1,23 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useWorkout from "../../hooks/useWorkout";
 import ExerciseCard from "../components/ExerciseCard";
-import { useSelector } from "react-redux";
-import { store } from "../../../app/store/store";
 
 const WorkoutDetails = () => {
   const { id } = useParams();
-  const { workouts, exercises } = useSelector((store) => store.workout);
+  const workouts = JSON.parse(localStorage.getItem("workouts")) || [];
   const workout = workouts.find((val) => {
     return val.id === id;
   });
 
-  const { navigate, day, deleteExercise } = useWorkout();
+  const {navigate, exercises, day, deleteExercise} = useWorkout()
   return (
     <div className="min-h-screen bg-[#F7F8F5] text-[#0C3B2E]">
       {/* Header */}
       <header className="border-b border-[#6D9773]/20 bg-white">
         <div className="mx-auto max-w-5xl px-6 py-6">
           <button
-            onClick={() => navigate(-1)}
+          onClick={() => navigate(-1)}
             type="button"
             className="mb-5 text-sm font-medium text-[#6D9773] transition hover:text-[#0C3B2E] cursor-pointer"
           >
@@ -36,7 +34,7 @@ const WorkoutDetails = () => {
             </div>
 
             <button
-              onClick={() => navigate("/add-workout")}
+            onClick={() => navigate("/add-workout")}
               type="button"
               className="rounded-xl bg-[#FFBA00] px-5 py-3 text-sm font-bold text-[#0C3B2E] shadow-sm transition hover:brightness-95 cursor-pointer"
             >
@@ -48,6 +46,7 @@ const WorkoutDetails = () => {
 
       {/* Content */}
       <main className="mx-auto max-w-5xl px-6 py-10">
+
         {/* Exercises */}
         <section>
           <div className="mb-5">
@@ -60,12 +59,7 @@ const WorkoutDetails = () => {
 
           <div className="space-y-4">
             {exercises.map((exercise, index) => (
-              <ExerciseCard
-                key={exercise.id}
-                exercise={exercise}
-                index={index}
-                deleteExercise={deleteExercise}
-              />
+              <ExerciseCard key={exercise.id} exercise={exercise} index={index} deleteExercise={deleteExercise} />
             ))}
           </div>
         </section>

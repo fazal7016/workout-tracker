@@ -22,6 +22,9 @@ const ExerciseCard = ({ exercise, index, deleteExercise }) => {
         </div>
 
         <div className="flex gap-3">
+          <span className="shrink-0 rounded-2xl bg-[#FFBA00]/20 px-2.5 py-1.5 text-[11px] font-semibold text-[#8A6500] sm:px-3 sm:py-2 sm:text-xs">
+            {exercise.sets.length} Sets
+          </span>
           <button
             onClick={() => deleteExercise(exercise)}
             className="border-2 py-2 px-4 border-[#0C3B2E] bg-[#0C3B2E] text-white rounded-xl font-medium cursor-pointer transition hover:bg-white hover:text-[#0C3B2E]"
