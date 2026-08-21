@@ -3,9 +3,13 @@ import Navbar from "../components/Navbar";
 import DashboardHeader from "../components/DashboardHeader";
 import WorkoutCard from "../components/WorkoutCard";
 import useWorkout from "../../hooks/useWorkout";
+import { useSelector } from "react-redux";
+import { store } from "../../../app/store/store";
 
 const Dashboard = () => {
-  const { workouts, day, addWorkoutfunc, navigate, exercises } = useWorkout();
+  const { day, addWorkoutfunc, navigate } = useWorkout();
+
+  const {workouts, exercises} = useSelector((store) => store.workout)
   return (
     <div className="bg-[#F7F8F5] min-h-screen">
       <Navbar addWorkoutfunc={addWorkoutfunc} />

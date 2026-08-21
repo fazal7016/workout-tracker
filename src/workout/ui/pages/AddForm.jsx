@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { useParams } from "react-router";
 import useWorkout from "../../hooks/useWorkout";
-import { nanoid } from "nanoid";
-import Set from "../components/Set";
 import { BsPlus } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import SetComponent from "../components/SetComponent";
 
 const AddForm = () => {
   const {
@@ -13,8 +11,9 @@ const AddForm = () => {
     errors,
     getExerciseData,
     addSetfunc,
-    sets,
   } = useWorkout();
+
+  const { sets } = useSelector((store) => store.workout);
 
   return (
     <div className="min-h-screen bg-[#F7F8F5] px-4 py-8 sm:px-6">
@@ -71,34 +70,33 @@ const AddForm = () => {
           </div>
 
           {/* Sets Header */}
-          <div className="mt-8 flex items-center justify-between">
-            <div>
+          <div className="mt-8 flex items-center justify-between gap-3">
+            <div className="min-w-0">
               <h2 className="text-lg font-bold text-[#0C3B2E]">
                 Exercise Sets
               </h2>
 
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-gray-500 hidden min-[400px]:inline">
                 Record your performance for each set.
               </p>
             </div>
-            <div>
-              <button
-                onClick={addSetfunc}
-                type="button"
-                className="flex shrink-0 items-center justify-center gap-1.5 rounded-xl border-2 border-[#0C3B2E] bg-[#0C3B2E] px-3 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-[#0C3B2E] sm:px-4 sm:py-3"
-              >
-                <BsPlus className="text-xl" />
-                <span>Add Set</span>
-              </button>
-            </div>
+
+            <button
+              onClick={addSetfunc}
+              type="button"
+              className="flex shrink items-center justify-center gap-3 rounded-xl border-2 border-[#0C3B2E] bg-[#0C3B2E] px-3 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-[#0C3B2E] sm:px-4 sm:py-3"
+            >
+              <BsPlus className="flex shrink text-xl" />
+              <span className="whitespace-nowrap">Add Set</span>
+            </button>
           </div>
 
           {/* Sets */}
           {sets.map((val, index) => {
             return (
-              <Set
+              <SetComponent
                 key={val.id}
-                set={val}
+                val={val}
                 index={index}
                 register={register}
                 errors={errors}
