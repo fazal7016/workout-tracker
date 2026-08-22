@@ -1,13 +1,13 @@
 import React from "react";
 
-const ExerciseCard = ({ exercise, onDelete }) => {
+const ExerciseCard = ({ exercise, onDelete, index }) => {
   return (
     <div className="rounded-2xl border border-[#6D9773]/20 bg-white p-5 shadow-sm">
       {/* Exercise Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0C3B2E] text-sm font-bold text-white">
-            1
+            {index + 1}
           </div>
 
           <div>

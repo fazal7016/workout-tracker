@@ -58,11 +58,12 @@ const WorkoutDetails = () => {
           </div>
 
           <div className="space-y-4">
-            {workout.exercises.map((elem) => {
+            {workout.exercises.map((elem, index) => {
               return (
                 <ExerciseCard
                   key={elem.id}
                   exercise={elem}
+                  index={index}
                   onDelete={() => deleteExercise(workout.id, elem.id)}
                 />
               );
