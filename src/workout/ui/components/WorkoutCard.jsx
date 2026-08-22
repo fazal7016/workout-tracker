@@ -1,7 +1,7 @@
 import React from "react";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 
-const WorkoutCard = ({ singleWorkout, day, navigate, exercises }) => {
+const WorkoutCard = ({workout, navigate}) => {
   return (
     <div
       className="
@@ -23,11 +23,11 @@ const WorkoutCard = ({ singleWorkout, day, navigate, exercises }) => {
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h1 className="truncate text-xl font-bold text-[#0C3B2E] sm:text-2xl">
-            {singleWorkout.dayRepresentation}
+            {workout.dayRepresentation}
           </h1>
 
           <p className="mt-1 text-sm text-[#6D9773] sm:text-base">
-            {day}
+            {workout.day} 
           </p>
         </div>
 
@@ -39,7 +39,7 @@ const WorkoutCard = ({ singleWorkout, day, navigate, exercises }) => {
       <div className="mt-5 flex items-center justify-between gap-3 border-t border-gray-200 pt-4 sm:mt-6 sm:pt-5">
         <p className="text-sm text-gray-500 sm:text-base">
           <span className="font-semibold text-[#0C3B2E]">
-            {exercises.length}
+            {workout.exercises.length} 
           </span>{" "}
           Exercises
         </p>
@@ -47,7 +47,7 @@ const WorkoutCard = ({ singleWorkout, day, navigate, exercises }) => {
         <button
           type="button"
           onClick={() =>
-            navigate(`/workout-detail/${singleWorkout.id}`)
+            navigate(`/workout-detail/${workout.id}`)
           }
           className="group flex shrink-0 cursor-pointer items-center gap-1 text-sm font-semibold text-[#BB8A52]"
         >

@@ -1,13 +1,13 @@
 import React from "react";
 
-const ExerciseCard = ({ exercise, index, deleteExercise }) => {
+const ExerciseCard = ({ exercise, onDelete }) => {
   return (
     <div className="rounded-2xl border border-[#6D9773]/20 bg-white p-5 shadow-sm">
       {/* Exercise Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0C3B2E] text-sm font-bold text-white">
-            {index + 1}
+            1
           </div>
 
           <div>
@@ -16,17 +16,14 @@ const ExerciseCard = ({ exercise, index, deleteExercise }) => {
             </p>
 
             <h2 className="mt-1 text-xl font-bold text-[#0C3B2E]">
-              {exercise.exerciseName}
+              {exercise.name}
             </h2>
           </div>
         </div>
 
         <div className="flex gap-3">
-          <span className="shrink-0 rounded-2xl bg-[#FFBA00]/20 px-2.5 py-1.5 text-[11px] font-semibold text-[#8A6500] sm:px-3 sm:py-2 sm:text-xs">
-            {exercise.sets.length} Sets
-          </span>
           <button
-            onClick={() => deleteExercise(exercise)}
+            onClick={onDelete}
             className="border-2 py-2 px-4 border-[#0C3B2E] bg-[#0C3B2E] text-white rounded-xl font-medium cursor-pointer transition hover:bg-white hover:text-[#0C3B2E]"
           >
             Delete
@@ -43,28 +40,27 @@ const ExerciseCard = ({ exercise, index, deleteExercise }) => {
         </div>
 
         <div className="divide-y divide-gray-100">
-          {exercise.sets.map((set, setIndex) => (
-            <div
-              key={set.id || setIndex}
-              className="grid grid-cols-[60px_1fr_1fr] items-center gap-3 py-3"
-            >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#6D9773]/15 text-sm font-bold text-[#0C3B2E]">
-                {setIndex + 1}
-              </div>
+          {exercise.set.map((s, setIndex) => {
+            return (
+              <div className="grid grid-cols-[60px_1fr_1fr] items-center gap-3 py-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#6D9773]/15 text-sm font-bold text-[#0C3B2E]">
+                  {setIndex + 1}
+                </div>
 
-              <div>
-                <span className="font-semibold text-[#0C3B2E]">
-                  {set.weight}
-                </span>
-                <span className="ml-1 text-xs text-gray-400">kg</span>
-              </div>
+                <div>
+                  <span className="font-semibold text-[#0C3B2E]">
+                    {s.weight}
+                  </span>
+                  <span className="ml-1 text-xs text-gray-400">kg</span>
+                </div>
 
-              <div>
-                <span className="font-semibold text-[#0C3B2E]">{set.reps}</span>
-                <span className="ml-1 text-xs text-gray-400">reps</span>
+                <div>
+                  <span className="font-semibold text-[#0C3B2E]">{s.reps}</span>
+                  <span className="ml-1 text-xs text-gray-400">reps</span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

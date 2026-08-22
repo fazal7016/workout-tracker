@@ -1,7 +1,7 @@
 import React from "react";
 import { BsPlus } from "react-icons/bs";
 
-const Navbar = ({ addWorkoutfunc }) => {
+const Navbar = ({createWorkout}) => {
   return (
     <nav className="w-full border-b border-[#6D9773]/20 bg-white">
       <div className="mx-auto flex min-h-20 max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-10 xl:px-16">
@@ -19,7 +19,7 @@ const Navbar = ({ addWorkoutfunc }) => {
 
         {/* Add Workout Button */}
         <button
-          onClick={addWorkoutfunc}
+          onClick={createWorkout}
           type="button"
           className="flex shrink-0 items-center justify-center gap-1.5 rounded-xl border-2 border-[#0C3B2E] bg-[#0C3B2E] px-3 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-[#0C3B2E] sm:px-4 sm:py-3"
         >

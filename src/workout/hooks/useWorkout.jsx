@@ -1,51 +1,27 @@
-import React, { useState } from "react";
 import { nanoid } from "nanoid";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
-const useWorkout = () => {
-  const monthArr = [
-    //month array because the Date object gives number
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "June",
-    "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const dayArr = [
-    //day array because the Date object gives number
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+const dayArr = [
+  //day array because the Date object gives number
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
-  const today = new Date(); //gets the current date
-  const date = today.getDate();
-  const month = monthArr[today.getMonth()]; //using array to get month
-  const year = today.getFullYear();
-  const day = dayArr[today.getDay()]; //using array to get day
-
+const useWorkout2 = () => {
+  const currentDay = new Date();
+  const day = dayArr[currentDay.getDay()];
+  const date = currentDay.getDate();
+  const month = currentDay.toLocaleString("en", { month: "short" });
+  const year = currentDay.getFullYear();
   const dayRepresentation = `${date} ${month} ${year}`;
-
-  const [workouts, setWorkouts] = useState(
-    JSON.parse(localStorage.getItem("workouts")) || [],
-  );
-  const [exercises, setExercises] = useState(
-    JSON.parse(localStorage.getItem("exercises")) || [],
-  );
-  const [currentWorkoutExercises, setCurrentWorkoutExercises] = useState([]);
 
   const {
     register,
@@ -55,92 +31,94 @@ const useWorkout = () => {
   } = useForm();
 
   const navigate = useNavigate();
+  const [workouts, setWorkouts] = useState(
+    JSON.parse(localStorage.getItem("workouts")) || [],
+  );
+  const [workoutSet, setWorkoutSet] = useState([]);
 
-  const addWorkoutfunc = () => {
+  const createWorkout = () => {
     setWorkouts((prevWorkout) => {
       const checkWorkout = prevWorkout.find((val) => {
         return val.dayRepresentation === dayRepresentation;
-      }); // check that if workout for that day exists or not
+      });
 
       if (checkWorkout) {
-        // if workout exists then give warning
-        toast.warn("Workout already added");
+        toast.error("Workout already exists");
         return prevWorkout;
       }
 
       const newWorkout = {
-        dayRepresentation,
-        id: nanoid(),
-        exercises: currentWorkoutExercises,
         day,
+        dayRepresentation,
+        exercises: [],
+        id: nanoid(),
       };
-      const updatedWorkouts = [...prevWorkout, newWorkout];
 
-      localStorage.setItem("workouts", JSON.stringify(updatedWorkouts));
+      const updatedWorkout = [...prevWorkout, newWorkout];
       toast.success("Workout added successfully");
-
-      return updatedWorkouts;
+      localStorage.setItem("workouts", JSON.stringify(updatedWorkout));
+      return updatedWorkout;
     });
-    setCurrentWorkoutExercises([]);
   };
 
-  const [sets, setSets] = useState([]);
-
-  const addSetfunc = () => {
-    //function for creating new set
-    setSets((prev) => [...prev, { id: nanoid(), weight: "", reps: "" }]);
+  const addNewSet = () => {
+    setWorkoutSet((prev) => [...prev, { id: nanoid(), weight: "", reps: "" }]);
   };
 
-  const getExerciseData = (data) => {
-    setExercises((prevExercise) => {
-      const checkExercise = prevExercise.find((val) => {
-        return val.exerciseName //check if same exercise already exists
-          .toLowerCase() // checking based on exercise name
-          .includes(data.exerciseName.toLowerCase());
+  const handleExerciseData = (data) => {
+    const newExercise = {
+      id: nanoid(),
+      name: data.exerciseName,
+      set: data.set,
+    };
+
+    setWorkouts((prevWorkout) => {
+      const updateWorkouts = prevWorkout.map((elem) => {
+        if (elem.dayRepresentation !== dayRepresentation) {
+          return elem;
+        }
+        return { ...elem, exercises: [...elem.exercises, newExercise] };
       });
-
-      if (checkExercise) {
-        //if exercise exists then give warning
-        toast.warn("Exercise already exists");
-        return prevExercise;
-      }
-
-      const newExercise = { ...data, id: nanoid() };
-      const updatedExercise = [...prevExercise, newExercise];
-
-      localStorage.setItem("exercises", JSON.stringify(updatedExercise));
-      toast.success("Exercise added successfully");
-
-      return updatedExercise;
+      localStorage.setItem("workouts", JSON.stringify(updateWorkouts));
+      return updateWorkouts;
     });
-
-    navigate(-1); //after adding a exercise go back to exercise page
+    setWorkoutSet([]);
     reset();
+    navigate(-1);
   };
 
-  const deleteExercise = (exercise) => {
-    const deletedArr = exercises.filter((val) => {
-      return val.id !== exercise.id; // filtering array with no matching ids so it will delete the exercise
+  const deleteExercise = (workoutId, exerciseId) => {
+    setWorkouts((prevWorkout) => {
+      const updatedWorkout = prevWorkout.map((workout) => {
+        if (workout.id !== workoutId) {
+          return workout;
+        }
+
+        return {
+          ...workout,
+          exercises: workout.exercises.filter((val) => {
+            return val.id !== exerciseId;
+          }),
+        };
+      });
+      localStorage.setItem("workouts", JSON.stringify(updatedWorkout));
+      toast.error("Exercise deleted");
+      return updatedWorkout;
     });
-    setExercises(deletedArr);
-    localStorage.setItem("exercises", JSON.stringify(deletedArr));
-    toast.warn("Exercise Deleted");
   };
 
   return {
-    workouts,
-    day,
-    addWorkoutfunc,
-    navigate,
     register,
     handleSubmit,
     errors,
-    getExerciseData,
-    sets,
-    addSetfunc,
-    exercises,
+    navigate,
+    createWorkout,
+    workouts,
+    handleExerciseData,
+    addNewSet,
+    workoutSet,
     deleteExercise,
   };
 };
 
-export default useWorkout;
+export default useWorkout2;

@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import { useParams } from "react-router";
 import useWorkout from "../../hooks/useWorkout";
-import { nanoid } from "nanoid";
 import Set from "../components/Set";
 import { BsPlus } from "react-icons/bs";
 
 const AddForm = () => {
   const {
     navigate,
+    handleExerciseData,
+    addNewSet,
+    workoutSet,
     register,
     handleSubmit,
     errors,
-    getExerciseData,
-    addSetfunc,
-    sets,
   } = useWorkout();
 
   return (
@@ -44,7 +41,7 @@ const AddForm = () => {
 
         {/* Main Card */}
         <form
-          onSubmit={handleSubmit(getExerciseData)}
+          onSubmit={handleSubmit(handleExerciseData)}
           className="rounded-3xl border border-[#6D9773]/20 bg-white p-5 shadow-sm sm:p-8"
         >
           {/* Exercise Name */}
@@ -83,7 +80,7 @@ const AddForm = () => {
             </div>
 
             <button
-              onClick={addSetfunc}
+              onClick={addNewSet}
               type="button"
               className="flex shrink items-center justify-center gap-3 rounded-xl border-2 border-[#0C3B2E] bg-[#0C3B2E] px-3 py-2.5 text-sm font-medium text-white transition hover:bg-white hover:text-[#0C3B2E] sm:px-4 sm:py-3"
             >
@@ -93,16 +90,8 @@ const AddForm = () => {
           </div>
 
           {/* Sets */}
-          {sets.map((val, index) => {
-            return (
-              <Set
-                key={val.id}
-                set={val}
-                index={index}
-                register={register}
-                errors={errors}
-              />
-            );
+          {workoutSet.map((val, index) => {
+            return <Set key={val.id} set={val} index={index} register={register} errors={errors} />;
           })}
 
           {/* Divider */}

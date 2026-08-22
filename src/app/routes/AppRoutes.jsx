@@ -7,18 +7,18 @@ import WorkoutDetails from "../../workout/ui/pages/WorkoutDetails";
 const AppRoutes = () => {
   const router = createBrowserRouter([
     {
-        path: "/",
-        element: <Dashboard />,
+      path: "/",
+      element: <Dashboard />,
     },
     {
-        path: "/workout-detail/:id",
-        element: <WorkoutDetails />,
+      path: "/workout-detail/:id",
+      element: <WorkoutDetails />,
     },
     {
-        path: "/add-workout",
-        element: <AddForm />,
+      path: "/add-workout",
+      element: <AddForm />,
     },
-]);
+  ]);
   return <RouterProvider router={router} />;
 };
 

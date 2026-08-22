@@ -1,6 +1,6 @@
 import React from "react";
 
-const Set = ({ index, register, errors }) => {
+const Set = ({ set, index, register, errors }) => {
   return (
     <div className="mt-5 space-y-3">
       <div className="rounded-2xl border border-[#6D9773]/20 bg-      [#F7F8F5] p-4">
@@ -22,7 +22,7 @@ const Set = ({ index, register, errors }) => {
 
             <div className="relative">
               <input
-                {...register(`sets.${index}.weight`, {
+                {...register(`set.${index}.weight`, {
                   required: "Weight required",
                 })}
                 type="number"
@@ -46,7 +46,7 @@ const Set = ({ index, register, errors }) => {
             </label>
 
             <input
-              {...register(`sets.${index}.reps`, {
+              {...register(`set.${index}.reps`, {
                 required: "Enter reps",
               })}
               type="number"
